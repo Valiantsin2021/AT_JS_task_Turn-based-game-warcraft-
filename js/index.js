@@ -157,9 +157,9 @@ class Unit {
         this.hp = Math.round(currentHp);
     }
     attack(def) {
-        def.dealDamage = this.damage - this.damage/def.armor + this.attackRate;
+        def.dealDamage = this.damage - this.damage/def.armor - def.attackRate;
         action.innerHTML = `${this.name} makes 
-        ${Math.round(this.damage - this.damage/def.armor + this.attackRate)} damage to ${def.getName()}`;
+        ${Math.round(this.damage - this.damage/def.armor - def.attackRate)} damage to ${def.getName()}`;
         }
     doFight(player, enemy) {
 		let attacksByPlayer = this.getRandom();
