@@ -5,23 +5,17 @@ class Game {
             alert('Choose your fighter')
             display.hide(startBtn)
             this.createListCharacters()
-            if(list.classList.contains('hidden')) {
-                display.unHide(list)
-            }
         })
     }
     createListCharacters() {
-        if(list.contains(characterBtn)) {
-            return
-        } else {
+
             for(let i = 0; i < charactersArr.length; i++) {
                 characterBtn = document.createElement('button')
                 characterBtn.innerHTML = charactersArr[i].name.toString()
                 characterBtn.classList.add('pers')
                 list.append(characterBtn)
             }
-        }    
-    }
+        }
     selectPlayer() {
         list.addEventListener('click', (event) => {
             if(event.target.classList.contains('pers')) {
@@ -44,23 +38,12 @@ class Game {
             }
             display.hide(list)
             display.unHide(fightBtn)
-            if(action.classList.contains('hidden')) {
-                display.unHide(action)
-            }
-            if(playerInfo.classList.contains('hidden') && enemyInfo.classList.contains('hidden')) {
-                display.unHide(playerInfo)
-                display.unHide(enemyInfo)
-            }
-            if(battleField.contains(playerInfo && enemyInfo)) {
-                this.status()
-            } else {
             battleField.append(playerInfo, enemyInfo)
-            }
             this.status()
         })
     }
     randomCharacter() {
-        return Array.from(characterArrEnemy)[Math.floor(Math.random() * characterArrEnemy.length)]
+        return [...characterArrEnemy][Math.floor(Math.random() * characterArrEnemy.length)]
     }
     clickFight() {
         fightBtn.addEventListener('click', () => {
@@ -72,28 +55,16 @@ class Game {
         this.status();
         if(player.hp === 0) {
             alert(`Game over ${enemy.name} win`)
-            return this.initGame()
+            return location.reload()
         } else if (enemy.hp === 0) {
             alert(`Game over ${player.name} win`)
-            return this.initGame()
+            return location.reload()
         }
     }
     status() {
         playerInfo.value = player.getAllInfo();
         enemyInfo.value = enemy.getAllInfo();
     }
-    initGame() {
-        display.unHide(startBtn)
-        display.hide(action)
-        display.hide(fightBtn)
-        display.hide(playerInfo)
-        display.hide(enemyInfo)
-        display.hide(list)
-        player.resetUnit();
-        enemy.resetUnit();
-        action.innerHTML = '';
-        enemy = this.randomCharacter()
-    }  
 }
 
 class Display {
